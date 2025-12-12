@@ -23,9 +23,246 @@ import img15 from "./assets/Imagen 15.jpg";
 const { Title, Paragraph } = Typography;
 const { Header, Content } = Layout;
 
+type TechnicalInfo = {
+  format: string;
+  dimensions: string;
+  size: string;
+  resolution: string;
+};
+
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  ethPrice: number;
+  description: string;
+  image: string;
+  author: string;
+  technical: TechnicalInfo;
+  edition: string;
+};
+
+const termsHtml = `
+<h3>1. Aceptacion de los terminos</h3>
+<p>Al acceder o utilizar Artereum SV, tanto compradores como artistas aceptan estos Terminos y Condiciones, que constituyen un contrato electronico valido conforme al Art. 7 de la Ley de Comercio Electronico (LCE).</p>
+<p>La aceptacion digital constituye manifestacion expresa de voluntad y habilita la ejecucion de procesos como la compra, publicacion de obras, tokenizacion conceptual y envio de notificaciones electronicas.</p>
+
+<h3>2. Naturaleza del servicio</h3>
+<p>Artereum SV opera como un marketplace digital de NFTs y funciona exclusivamente como intermediario, de acuerdo con el Art. 25 LCE.</p>
+<ul>
+  <li>No es titular de derechos de autor de las obras subidas por artistas.</li>
+  <li>No actua como custodio de activos digitales, sino como facilitador conceptual del proceso de compra.</li>
+</ul>
+<p>Esta distincion aplica tanto para compradores como para artistas.</p>
+
+<h3>3. Registro y uso del sitio</h3>
+<h4>3.1 Disposiciones para compradores</h4>
+<p>Los compradores pueden navegar el catalogo sin registrarse. Para realizar una compra deben proporcionar los datos minimos:</p>
+<ul>
+  <li>Datos de contacto.</li>
+  <li>Wallet para entrega del NFT.</li>
+  <li>Aceptacion de Terminos y Condiciones.</li>
+  <li>Consentimiento para el tratamiento de datos personales.</li>
+</ul>
+<p>Estos datos se utilizan exclusivamente para ejecutar el contrato electronico y gestionar evidencia y postventa.</p>
+
+<h4>3.2 Disposiciones para artistas</h4>
+<p>Los artistas deben proporcionar:</p>
+<ul>
+  <li>Identidad o seudonimo profesional.</li>
+  <li>Medios de contacto.</li>
+  <li>Declaracion de autoria.</li>
+  <li>Archivos digitales para revision y tokenizacion conceptual.</li>
+</ul>
+<p>Todo artista se obliga a proporcionar informacion veraz y confirmar que tiene derecho a publicar/tokenizar las obras.</p>
+
+<h3>4. Presentacion del producto</h3>
+<h4>4.1 Compradores</h4>
+<p>Toda obra exhibida debe incluir, conforme al Art. 27 de la Ley de Proteccion al Consumidor (LPC):</p>
+<ul>
+  <li>Autor o alias.</li>
+  <li>Caracteristicas tecnicas del archivo.</li>
+  <li>Tipo de edicion (unica o multiple).</li>
+  <li>Precio total con comisiones aplicables.</li>
+  <li>Alcances y limitaciones de uso del NFT.</li>
+</ul>
+
+<h4>4.2 Artistas</h4>
+<p>Los artistas deben garantizar que la informacion proporcionada sobre su obra:</p>
+<ul>
+  <li>Es veraz.</li>
+  <li>No infringe derechos de terceros.</li>
+  <li>Representa fielmente el contenido entregado.</li>
+</ul>
+
+<h3>5. Proceso de compra (exclusivo para compradores)</h3>
+<p>El proceso sigue estrictamente lo establecido en el Art. 18 LCE:</p>
+<ol>
+  <li>Informacion precontractual clara sobre precio total, edicion, comisiones y limitaciones.</li>
+  <li>Presentacion del precio final antes de la aceptacion.</li>
+  <li>Pantalla "Revisar y Confirmar compra", donde el comprador puede corregir errores.</li>
+  <li>Aceptacion expresa del comprador.</li>
+  <li>Ejecucion conceptual del smart contract.</li>
+  <li>Envio del acuse de recibo al comprador (Art. 19 LCE).</li>
+</ol>
+
+<h3>6. Publicacion y tokenizacion conceptual (exclusivo para artistas)</h3>
+<p>Artereum SV realiza una revision basica para verificar que la obra:</p>
+<ul>
+  <li>Cumple estandares minimos de calidad.</li>
+  <li>No muestra indicios evidentes de infraccion.</li>
+</ul>
+<p>Una vez aprobada:</p>
+<ul>
+  <li>Se genera el NFT conceptualmente.</li>
+  <li>Se publica la obra en el catalogo.</li>
+  <li>El artista acepta comisiones, condiciones de venta y responsabilidades por su contenido.</li>
+</ul>
+
+<h3>7. Smart contract</h3>
+<p>El NFT es creado o transferido mediante un smart contract conceptual, cuya ejecucion constituye el perfeccionamiento tecnico del contrato de compraventa, reconocido por el Art. 7 LCE.</p>
+<ul>
+  <li>El comprador adquiere la titularidad del token.</li>
+  <li>El artista recibe la comision segun condiciones acordadas.</li>
+  <li>Artereum SV conserva evidencia conforme al Art. 20 LCE.</li>
+</ul>
+
+<h3>8. Alcances de la compra (propiedad intelectual)</h3>
+<h4>8.1 Derechos del comprador</h4>
+<p>El comprador recibe:</p>
+<ul>
+  <li>Titularidad del token NFT.</li>
+  <li>Una licencia no exclusiva y personal para visualizar la obra digital.</li>
+</ul>
+<p>No recibe:</p>
+<ul>
+  <li>Derechos patrimoniales ni morales del autor.</li>
+  <li>Permiso de distribucion, modificacion o comercializacion (Arts. 10 y 24 LPI).</li>
+</ul>
+
+<h4>8.2 Obligaciones del artista</h4>
+<p>El artista garantiza que:</p>
+<ul>
+  <li>Es el titular legitimo de los derechos de autor o cuenta con autorizacion.</li>
+  <li>La obra no infringe derechos de terceros.</li>
+  <li>Autoriza a Artereum SV a exhibir la obra y generar el NFT derivado.</li>
+</ul>
+
+<h4>8.3 Limitaciones para ambos</h4>
+<p>Ningun usuario, sea comprador o artista, puede:</p>
+<ul>
+  <li>Eludir medidas de seguridad.</li>
+  <li>Usar la plataforma para actividades ilicitas.</li>
+  <li>Interferir en procesos tecnicos o manipular registros.</li>
+</ul>
+
+<h3>9. Politica de devoluciones</h3>
+<h4>9.1 Compradores</h4>
+<p>El comprador podra solicitar devolucion dentro de 48 horas, sujeto a:</p>
+<ul>
+  <li>El NFT no ha sido transferido a otra wallet.</li>
+  <li>No existan indicios de fraude.</li>
+  <li>Se aceptan las limitaciones inherentes:
+    <ul>
+      <li>Gas fees no reembolsables.</li>
+      <li>Comisiones no recuperables.</li>
+      <li>Tarifas blockchain ajenas a Artereum SV.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4>9.2 Artistas</h4>
+<p>Los artistas aceptan que:</p>
+<ul>
+  <li>Las devoluciones pueden afectar su comision.</li>
+  <li>Deben colaborar en procesos de reclamos de compradores.</li>
+  <li>No pueden oponerse a devoluciones justificadas dentro del plazo indicado.</li>
+</ul>
+
+<h3>10. Responsabilidad del usuario (compradores y artistas)</h3>
+<p>Ambos roles aceptan:</p>
+<ul>
+  <li>Proveer informacion veraz.</li>
+  <li>No usar la plataforma con fines ilicitos.</li>
+  <li>No suplantar identidades ni apropiarse de contenido ajeno.</li>
+  <li>No interferir con procesos tecnicos o de seguridad.</li>
+</ul>
+<p>Los artistas tienen ademas responsabilidad directa sobre la legalidad de sus obras.</p>
+
+<h3>11. Responsabilidad del marketplace</h3>
+<p>Conforme al Art. 25 LCE:</p>
+<ul>
+  <li>Artereum SV no esta obligado a supervisar contenido de artistas.</li>
+  <li>No es responsable por infracciones cometidas por terceros.</li>
+  <li>Su responsabilidad solo surge cuando tiene conocimiento efectivo de ilegalidad y no actua con diligencia.</li>
+</ul>
+
+<h3>12. Notice & Takedown (contenido ilicito)</h3>
+<p>Aplica tanto a compradores como artistas. El procedimiento incluye:</p>
+<ol>
+  <li>Recepcion de notificacion valida con pruebas.</li>
+  <li>Bloqueo temporal del NFT denunciado.</li>
+  <li>Notificacion inmediata al artista afectado.</li>
+  <li>Analisis y resolucion.</li>
+  <li>Contranotificacion, si corresponde.</li>
+  <li>Retirada definitiva o restauracion del contenido.</li>
+</ol>
+<p>Este proceso cumple Art. 26 LCE y practicas de propiedad intelectual.</p>
+
+<h3>13. Cumplimiento con Instagram / Meta</h3>
+<h4>13.1 Publicaciones del marketplace</h4>
+<p>Las obras promocionadas en Instagram estan sujetas a:</p>
+<ul>
+  <li>Instagram Community Guidelines.</li>
+  <li>Instagram Terms of Use.</li>
+  <li>Instagram Commerce Policies.</li>
+</ul>
+<p>Lo que implica:</p>
+<ul>
+  <li>Artereum SV solo puede usar Instagram como canal informativo, no de transacciones.</li>
+  <li>Cualquier contenido reportado directamente a Instagram puede ser retirado de forma inmediata por la plataforma, sin intervencion de Artereum SV.</li>
+  <li>Las decisiones de Instagram no estan bajo control del marketplace.</li>
+</ul>
+
+<h4>13.2 Obligaciones de compradores y artistas</h4>
+<p>Ambos aceptan que:</p>
+<ul>
+  <li>Las interacciones en Instagram se rigen por las politicas de Meta.</li>
+  <li>No deben subir contenido que infrinja derechos de autor o normas comunitarias.</li>
+  <li>Instagram puede restringir, ocultar o eliminar publicaciones sin previo aviso.</li>
+</ul>
+
+<h3>14. Evidencias electronicas</h3>
+<p>Artereum SV conservara conforme al Art. 20 LCE:</p>
+<ul>
+  <li>Version aceptada de los Terminos y Condiciones.</li>
+  <li>Hash de la transaccion.</li>
+  <li>Comprobante de pago.</li>
+  <li>Acuse de recibo.</li>
+  <li>Registro interno asociado al smart contract conceptual.</li>
+</ul>
+
+<h3>15. Proteccion de datos personales</h3>
+<p>El tratamiento se rige por:</p>
+<ul>
+  <li>Politica de Privacidad.</li>
+  <li>Politica de Tratamiento de Datos Personales.</li>
+  <li>Politica para Compartir Informacion y Consentimiento.</li>
+</ul>
+<p>Estas politicas se integran a estos Terminos por referencia.</p>
+
+<h3>16. Legislacion aplicable</h3>
+<ul>
+  <li>Ley de Comercio Electronico (LCE).</li>
+  <li>Ley de Proteccion al Consumidor (LPC).</li>
+  <li>Ley de Propiedad Intelectual (LPI).</li>
+  <li>Ley de Firma Electronica (LFE).</li>
+  <li>Ley de Ciberseguridad.</li>
+</ul>
+`;
 
 export default function App() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 const [open, setOpen] = useState(false);
 const merchantWallet = "0x1234567890abcdefABCDEF1234567890abcdef12";
 const [openTerms, setOpenTerms] = useState(false);
@@ -42,7 +279,7 @@ const notifyPaymentSuccess = () => {
 };
 
 // Dirección donde recibirás el pago ETH
-  const products = 
+  const products: Product[] = 
     [
   { id: 1,  name: "Eclipse Neón",          price: 50,  ethPrice: 0.0151, description: "Obra digital inspirada en fenómenos cósmicos reinterpretados en estilo ciberpunk.", image: img1,
     author: "AetherFlux",
@@ -191,6 +428,11 @@ const notifyPaymentSuccess = () => {
         <Menu
           theme="dark"
           mode="horizontal"
+          onClick={({ key }) => {
+            if (key === "tyc") {
+              setOpenTerms(true);
+            }
+          }}
           style={{
             background: "transparent",
             color: "white",
@@ -198,9 +440,10 @@ const notifyPaymentSuccess = () => {
             fontWeight: 500,
           }}
           items={[
-            { key: "1", label: "Inicio" },
-            { key: "2", label: "Colecciones" },
-            { key: "3", label: "Contacto" },
+            { key: "tyc", label: "Términos y condiciones" },
+            { key: "home", label: "Inicio" },
+            { key: "collections", label: "Colecciones" },
+            { key: "contact", label: "Contacto" },
           ]}
         />
 
@@ -298,16 +541,20 @@ const notifyPaymentSuccess = () => {
     padding: 0, 
     margin: 0,                  // elimina espacio externo
   }}
-  dialogStyle={{
-    padding: 0,                // elimina el borde exterior
-    background: "transparent", // fuerza a ZERO border
-  }}
   bodyStyle={{
     background: "#141414",
     borderRadius: 20,
     padding: 0,
     height: "80vh",
     overflowY: "auto",
+  }}
+  styles={{
+    container: {
+      padding: 0,
+      background: "transparent",
+      borderRadius: 20,
+      overflow: "hidden",
+    },
   }}
   modalRender={(node) => (
     <div
@@ -535,199 +782,44 @@ const notifyPaymentSuccess = () => {
   footer={null}
   centered
   width={700}
+  title="Terminos y condiciones"
+  zIndex={2000}
+  closeIcon={<span style={{ color: "white", fontSize: 18 }}>×</span>}
   bodyStyle={{
-    background: "#0d0d0d",
-    borderRadius: 20,
+    background: "#1A1A1A",
     padding: 20,
     maxHeight: "80vh",
     overflowY: "auto",
     color: "white",
   }}
+  styles={{
+    container: {
+      background: "#000",
+      borderRadius: 0,
+    },
+    header: {
+      background: "#000",
+      color: "white",
+      borderRadius: 0,
+    },
+    body: {
+      background: "#1A1A1A",
+      borderRadius: 0,
+    },
+    title: {
+      color: "white",
+    },
+  }}
 >
-  <Title level={3} style={{ color: "white" }}>
-    Términos y Condiciones – Artereum SV
-  </Title>
-
-  <div style={{ whiteSpace: "pre-line", color: "#ccc" }}>
-    {`Términos y condiciones – Artereum SV
-Última actualización: enero 2025
-
-1. Aceptación de los términos
-Al acceder o utilizar Artereum SV, tanto compradores como artistas aceptan estos Términos y Condiciones, que constituyen un contrato electrónico válido conforme al Art. 7 de la Ley de Comercio Electrónico (LCE).
-
-La aceptación digital constituye manifestación expresa de voluntad y habilita la ejecución de procesos como la compra, publicación de obras, tokenización conceptual y envío de notificaciones electrónicas.
-
-2. Naturaleza del servicio
-Artereum SV opera como un marketplace digital de NFTs y funciona exclusivamente como intermediario, de acuerdo con el Art. 25 LCE.
-
-No es titular de derechos de autor de las obras subidas por artistas.
-No actúa como custodio de activos digitales, sino como facilitador conceptual del proceso de compra.
-Esta distinción aplica tanto para compradores como para artistas.
-
-3. Registro y uso del sitio
-3.1 Disposiciones para compradores
-Los compradores pueden navegar el catálogo sin registrarse. Para realizar una compra deben proporcionar los datos mínimos:
-
-Datos de contacto.
-Wallet para entrega del NFT.
-Aceptación de Términos y Condiciones.
-Consentimiento para el tratamiento de datos personales.
-Estos datos se utilizan exclusivamente para ejecutar el contrato electrónico y gestionar evidencia y postventa.
-
-3.2 Disposiciones para artistas
-Los artistas deben proporcionar:
-
-Identidad o seudónimo profesional.
-Medios de contacto.
-Declaración de autoría.
-Archivos digitales para revisión y tokenización conceptual.
-Todo artista se obliga a proporcionar información veraz y confirmar que tiene derecho a publicar/tokenizar las obras.
-
-4. Presentación del producto
-4.1 Compradores
-Toda obra exhibida debe incluir, conforme al Art. 27 de la Ley de Protección al Consumidor (LPC):
-
-Autor o alias.
-Características técnicas del archivo.
-Tipo de edición (única o múltiple).
-Precio total con comisiones aplicables.
-Alcances y limitaciones de uso del NFT.
-4.2 Artistas
-Los artistas deben garantizar que la información proporcionada sobre su obra:
-
-Es veraz.
-No infringe derechos de terceros.
-Representa fielmente el contenido entregado.
-5. Proceso de compra (exclusivo para compradores)
-El proceso sigue estrictamente lo establecido en el Art. 18 LCE:
-
-Información precontractual clara sobre precio total, edición, comisiones y limitaciones.
-Presentación del precio final antes de la aceptación.
-Pantalla “Revisar y Confirmar compra”, donde el comprador puede corregir errores.
-Aceptación expresa del comprador.
-Ejecución conceptual del smart contract.
-Envío del acuse de recibo al comprador (Art. 19 LCE).
-6. Publicación y tokenización conceptual (exclusivo para artistas)
-Artereum SV realiza una revisión básica para verificar que la obra:
-
-Cumple estándares mínimos de calidad.
-No muestra indicios evidentes de infracción.
-Una vez aprobada:
-
-Se genera el NFT conceptualmente.
-Se publica la obra en el catálogo.
-El artista acepta comisiones, condiciones de venta y responsabilidades por su contenido.
-7. Smart contract
-El NFT es creado o transferido mediante un smart contract conceptual, cuya ejecución constituye el perfeccionamiento técnico del contrato de compraventa, reconocido por el Art. 7 LCE.
-
-El comprador adquiere la titularidad del token.
-El artista recibe la comisión según condiciones acordadas.
-Artereum SV conserva evidencia conforme al Art. 20 LCE.
-8. Alcances de la compra (propiedad intelectual)
-8.1 Derechos del comprador
-El comprador recibe:
-
-Titularidad del token NFT.
-Una licencia no exclusiva y personal para visualizar la obra digital.
-No recibe:
-
-Derechos patrimoniales ni morales del autor.
-Permiso de distribución, modificación o comercialización (Arts. 10 y 24 LPI).
-8.2 Obligaciones del artista
-El artista garantiza que:
-
-Es el titular legítimo de los derechos de autor o cuenta con autorización.
-La obra no infringe derechos de terceros.
-Autoriza a Artereum SV a exhibir la obra y generar el NFT derivado.
-8.3 Limitaciones para ambos
-Ningún usuario, sea comprador o artista, puede:
-
-Eludir medidas de seguridad.
-Usar la plataforma para actividades ilícitas.
-Interferir en procesos técnicos o manipular registros.
-9. Política de devoluciones
-9.1 Compradores
-El comprador podrá solicitar devolución dentro de 48 horas, sujeto a:
-
-El NFT no ha sido transferido a otra wallet.
-No existan indicios de fraude.
-Se aceptan las limitaciones inherentes:
-Gas fees no reembolsables.
-Comisiones no recuperables.
-Tarifas blockchain ajenas a Artereum SV.
-9.2 Artistas
-Los artistas aceptan que:
-
-Las devoluciones pueden afectar su comisión.
-Deben colaborar en procesos de reclamos de compradores.
-No pueden oponerse a devoluciones justificadas dentro del plazo indicado.
-10. Responsabilidad del usuario (compradores y artistas)
-Ambos roles aceptan:
-
-Proveer información veraz.
-No usar la plataforma con fines ilícitos.
-No suplantar identidades ni apropiarse de contenido ajeno.
-No interferir con procesos técnicos o de seguridad.
-Los artistas tienen además responsabilidad directa sobre la legalidad de sus obras.
-
-11. Responsabilidad del marketplace
-Conforme al Art. 25 LCE:
-
-Artereum SV no está obligado a supervisar contenido de artistas.
-No es responsable por infracciones cometidas por terceros.
-Su responsabilidad solo surge cuando tiene conocimiento efectivo de ilegalidad y no actúa con diligencia.
-12. Notice & Takedown (contenido ilícito)
-Aplica tanto a compradores como artistas. El procedimiento incluye:
-
-Recepción de notificación válida con pruebas.
-Bloqueo temporal del NFT denunciado.
-Notificación inmediata al artista afectado.
-Análisis y resolución.
-Contranotificación, si corresponde.
-Retirada definitiva o restauración del contenido.
-Este proceso cumple Art. 26 LCE y prácticas de propiedad intelectual.
-
-13. Cumplimiento con Instagram / Meta
-13.1 Publicaciones del marketplace
-Las obras promocionadas en Instagram están sujetas a:
-
-Instagram Community Guidelines.
-Instagram Terms of Use.
-Instagram Commerce Policies.
-Lo que implica:
-
-Artereum SV solo puede usar Instagram como canal informativo, no de transacciones.
-Cualquier contenido reportado directamente a Instagram puede ser retirado de forma inmediata por la plataforma, sin intervención de Artereum SV.
-Las decisiones de Instagram no están bajo control del marketplace.
-13.2 Obligaciones de compradores y artistas
-Ambos aceptan que:
-
-Las interacciones en Instagram se rigen por las políticas de Meta.
-No deben subir contenido que infrinja derechos de autor o normas comunitarias.
-Instagram puede restringir, ocultar o eliminar publicaciones sin previo aviso.
-14. Evidencias electrónicas
-Artereum SV conservará conforme al Art. 20 LCE:
-
-Versión aceptada de los Términos y Condiciones.
-Hash de la transacción.
-Comprobante de pago.
-Acuse de recibo.
-Registro interno asociado al smart contract conceptual.
-15. Protección de datos personales
-El tratamiento se rige por:
-
-Política de Privacidad.
-Política de Tratamiento de Datos Personales.
-Política para Compartir Información y Consentimiento.
-Estas políticas se integran a estos Términos por referencia.
-
-16. Legislación aplicable
-Ley de Comercio Electrónico (LCE).
-Ley de Protección al Consumidor (LPC).
-Ley de Propiedad Intelectual (LPI).
-Ley de Firma Electrónica (LFE).
-Ley de Ciberseguridad.`}
-  </div>
+  <div
+    style={{
+      color: "#d9d9d9",
+      lineHeight: 1.7,
+      display: "grid",
+      gap: 12,
+    }}
+    dangerouslySetInnerHTML={{ __html: termsHtml }}
+  />
 
   <Button
     block
