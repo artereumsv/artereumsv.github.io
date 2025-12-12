@@ -1,10 +1,77 @@
-<html>
+﻿<html lang="es">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Artereum SV - Términos y condiciones</title>
-</head>  
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --panel: #121212;
+      --accent: linear-gradient(90deg, #4fa3ff, #b37cff);
+      --text: #f5f5f5;
+      --muted: #c8c8c8;
+      --border: #1f1f1f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 32px 16px 48px;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--panel);
+      padding: 32px 28px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+    }
+    h1, h2, h3, h4 {
+      color: var(--text);
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 28px;
+      background: var(--accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 0;
+    }
+    h2 { font-size: 22px; }
+    h3 { font-size: 18px; }
+    h4 { font-size: 16px; }
+    p, ul, ol { color: var(--muted); margin-top: 0; }
+    ul, ol { padding-left: 20px; }
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(79,163,255,0.12);
+      color: #4fa3ff;
+      font-weight: 600;
+      margin-bottom: 12px;
+      border: 1px solid rgba(79,163,255,0.25);
+    }
+    .footer-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    a { color: #4fa3ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
 <body>
-<section id="terminos-condiciones-artereum-sv">
-  <h1>Términos y condiciones – Artereum SV</h1>
+<div class="container">
+  <div class="tag">Legal</div>
+  <h1>Términos y condiciones — Artereum SV</h1>
   <p><strong>Última actualización:</strong> enero 2025</p>
 
   <h2>1. Aceptación de los términos</h2>
@@ -83,7 +150,7 @@
   <ol>
     <li>Información precontractual clara sobre precio total, edición, comisiones y limitaciones.</li>
     <li>Presentación del precio final antes de la aceptación.</li>
-    <li>Pantalla “Revisar y Confirmar compra”, donde el comprador puede corregir errores.</li>
+    <li>Pantalla "Revisar y Confirmar compra", donde el comprador puede corregir errores.</li>
     <li>Aceptación expresa del comprador.</li>
     <li>Ejecución conceptual del smart contract.</li>
     <li>Envío del acuse de recibo al comprador (Art. 19 LCE).</li>
@@ -252,6 +319,7 @@
     <li>Ley de Firma Electrónica (LFE).</li>
     <li>Ley de Ciberseguridad.</li>
   </ul>
-</section>
+  <p class="footer-note">Artereum SV · Marketplace digital de NFTs · Este documento es de carácter informativo y se interpreta conforme a la legislación salvadoreña aplicable.</p>
+</div>
 </body>
 </html>
