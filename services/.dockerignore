@@ -1,0 +1,12 @@
+.git
+.appdata
+.dotnet
+.nuget
+.templateengine
+**/bin
+**/obj
+**/.vs
+**/.vscode
+**/*.user
+**/*.suo
+.gitkeep
