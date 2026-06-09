@@ -15,10 +15,11 @@ import {
 import type { ColumnsType } from "antd/es/table";
 import { DeleteOutlined, EditOutlined, PlusOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
+import SiteHeader from "../components/SiteHeader";
 import { artworksApi, type Artwork, type ArtworkPayload } from "../lib/artworksApi";
 
-const { Header, Content } = Layout;
-const { Title, Paragraph, Text } = Typography;
+const { Content } = Layout;
+const { Title, Text } = Typography;
 
 type ArtworkFormValues = ArtworkPayload;
 
@@ -162,11 +163,7 @@ export default function CatalogPage() {
   };
 
   const columns: ColumnsType<Artwork> = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      width: 70,
-    },
+    { title: "ID", dataIndex: "id", width: 70 },
     {
       title: "Obra",
       key: "artwork",
@@ -179,11 +176,7 @@ export default function CatalogPage() {
         </div>
       ),
     },
-    {
-      title: "Autor",
-      dataIndex: "authorName",
-      width: 180,
-    },
+    { title: "Autor", dataIndex: "authorName", width: 180 },
     {
       title: "Precio",
       key: "price",
@@ -241,34 +234,9 @@ export default function CatalogPage() {
 
   return (
     <Layout style={{ minHeight: "100vh", background: "#0d0d0d" }}>
-      <Header
-        style={{
-          background: "#11161f",
-          borderBottom: "1px solid #1f2937",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 24px",
-        }}
-      >
-        <div>
-          <Title level={3} style={{ margin: 0, color: "white" }}>
-            Catálogo
-          </Title>
-          <Text style={{ color: "#8c8c8c" }}>Mantenimiento de artworks</Text>
-        </div>
+      <SiteHeader />
 
-        <Space>
-          <Button icon={<ReloadOutlined />} onClick={() => void loadArtworks()}>
-            Recargar
-          </Button>
-          <Button type="primary" icon={<PlusOutlined />} onClick={openCreateModal}>
-            Nuevo artwork
-          </Button>
-        </Space>
-      </Header>
-
-      <Content style={{ padding: 24 }}>
+      <Content style={{ marginTop: 80, padding: 24 }}>
         <div
           style={{
             background: "#141414",
@@ -277,10 +245,32 @@ export default function CatalogPage() {
             border: "1px solid #262626",
           }}
         >
-          <Paragraph style={{ color: "#8c8c8c", marginTop: 0 }}>
-            La pantalla consume el servicio de `Artwork`. Configure `VITE_API_BASE_URL` si el API no
-            está en el mismo host.
-          </Paragraph>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 16,
+              marginBottom: 20,
+              flexWrap: "wrap",
+            }}
+          >
+            <div>
+              <Title level={3} style={{ margin: 0, color: "white" }}>
+                Catálogo
+              </Title>
+              <Text style={{ color: "#8c8c8c" }}>Mantenimiento de artworks</Text>
+            </div>
+
+            <Space>
+              <Button icon={<ReloadOutlined />} onClick={() => void loadArtworks()}>
+                Recargar
+              </Button>
+              <Button type="primary" icon={<PlusOutlined />} onClick={openCreateModal}>
+                Nuevo artwork
+              </Button>
+            </Space>
+          </div>
 
           <Table
             rowKey="id"
