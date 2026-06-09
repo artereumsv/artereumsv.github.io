@@ -1,28 +1,36 @@
-# Artereum SV
+# Artereum SV UI
 
-**Artereum SV** es un proyecto conceptual de marketplace de arte digital y NFTs, creado con fines académicos.  
-Este repositorio contiene la página web pública del proyecto, alojada mediante **GitHub Pages**.
+Frontend web de Artereum SV construido con React, TypeScript, Vite y Ant Design.
 
-## 🌐 Sitio web
-El sitio está disponible en:
+## Estructura
 
-➡️ https://artereumsv.github.io
+El proyecto de UI vive directamente en esta carpeta:
 
-## 🎯 Objetivo del proyecto
-Artereum SV combina arte digital, exposición de obras y elementos conceptuales de comercio electrónico, incluyendo:
-- Presentación de obras digitales.
-- Explicación del modelo de negocio.
-- Flujo simplificado del comprador y del artista.
-- Secciones legales y de transparencia para fines didácticos.
+- `src/` aplicación React
+- `public/` archivos estáticos públicos
+- `package.json` scripts y dependencias
+- `vite.config.ts` configuración de build
 
-## 📂 Estructura del sitio
-- `index.html` — Página principal del sitio.
-- Archivos adicionales se agregarán conforme avance el proyecto académico.
+## Rutas
 
-## 📬 Contacto
-Para información relacionada al proyecto:  
-**artereumsv@gmail.com**
+- `/` home pública alimentada desde el backend
+- `/legacy` home estática anterior
+- `/catalog` mantenimiento de artworks
 
----
+## Variables de entorno
 
-Este sitio y su contenido son parte de un ejercicio académico y no representan una plataforma comercial real.
+Crear `ui/.env.local` con:
+
+```env
+VITE_API_BASE_URL=https://tu-api
+```
+
+Si no se define, la UI usa el mismo host actual para llamar al backend.
+
+## Scripts
+
+```bash
+npm install
+npm run dev
+npm run build
+```

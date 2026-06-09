@@ -1,0 +1,6 @@
+.appdata/
+.dotnet/
+.nuget/
+.templateengine/
+src/**/bin/
+src/**/obj/
